@@ -1,0 +1,43 @@
+The list of users with each of their followers needs to be displayed in alpha betical order.
+We don't know the number of users upfront and we also don't know the how many follers they have.
+Typically we can have an array structure upon which we perform insertion sort or post order sorting to speed things up.
+
+To speed things up, it would be good to perform insertion sort, since we want to drop any duplicates.
+If we were to post drop the duplicates, we would require bulk sorting everything and then running a pruning method.
+Doing a bulk post sort many be much faster, since javascript everything is referance, and we would require resizing
+of the storage container all the time, we would reduce performance. Google JIT doesn't like structure changes
+as is require to re-compile the code all the time, especially, if an array keeps growing, because it doesn't know
+if all the elements are going to be of the same form yet to produce c backing structures for producing native machine code.
+I feel it will be a better bet to do a post sort and prune algorithm given the back ground optermization
+that will be able to be made knowing the stats on the array containers.
+
+When reading the tweets file the order in which the tweets occur is cronological order, which needs to be preservered
+for when we display the tweets for mix of users. How do we look at achiving this taking into account speed.
+
+Have a dictionary of the users that points to a collection of key, value pairs of their tweets, were the key
+is an interger that is incremented for each tweet, vector clock/mod stamp, to preserver the ordering.
+
+When we are to printout the output, we iterate the main users collection and then for each follower
+merge their tweets in to presever the crolological order, then dup the tweets out.
+Once again it would be faster to perform a post sort than insertion sort, since backing data structures
+will be know for each element.
+
+All of this requires reading the files into memory and then dumping them to the console, which could be alot of memory.
+One could look at processing the tweets into a key position so that one can quick jump to the key on each new line.
+This would not require reading everything into memory appart from build a map to the start locations of each key.
+
+To speed somthings up, we could delay the pruning, to the iterator, which just skip the items in the sorted list,
+because deleting them or marking them as delete would also consume additional cpu cycles.
+
+1. Read the file for their users and followers into array data structure.
+2. Read the tweets file into.
+3. Process the output to the console.
+
+Things that could go wrong, a file couldn't be well formed and could failed to be passed.
+Two options here: hard fail with and error or fail with a warning and attempt to recover.
+For this example we choose to fail hard, as we going to consider this program testing others programs.
+
+The files many not be open for some or other reasons.
+
+
+Question do we use a 
