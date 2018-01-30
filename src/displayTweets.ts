@@ -2,7 +2,7 @@ import {Tweets, TUserTweet} from './Modules/tweets';
 import {Users, TUserAndFollowers, TUser} from './Modules/users';
 import {FileDataReader} from './Modules/DataReader/FileDataReader';
 
-export interface TFollowerAndUserTweet extends TUserTweet
+interface TFollowerAndUserTweet extends TUserTweet
 {
     user : TUser;
 } 
@@ -31,26 +31,28 @@ export class DisplayTweets
 
             let lastUser : TUser | undefined = undefined;
 
-            follows.forEach(user => {
+            [record.user, ... follows].forEach(user => {
 
                 if (user != lastUser)
                 {
                     let userTweets : TUserTweet [] = usersTweetRecords[user];
-                    userTweets.forEach(t => tweets.push(<TFollowerAndUserTweet>{user:user, modstamp:t.modstamp, message: t.message}));
+                    if (userTweets != undefined)
+                        userTweets.forEach(t => tweets.push(<TFollowerAndUserTweet>{user:user, modstamp:t.modstamp, message: t.message}));
+
                 }
 
                 lastUser = user;
             })
-
+            
             tweets.sort((a, b) => a.modstamp - b.modstamp);
-
+            
             // Probably would be faster to buffer the string and then do bulk flushes, but leave that for another time.
             console.log(record.user +"\n\n");
 
             tweets.forEach(tweet =>
             {
-                console.log("\t@" + tweet.user + ":" + tweet.message);
-            })
+                console.log("\t@" + tweet.user + ": " + tweet.message);
+            })            
             
         });        
 
