@@ -40,4 +40,19 @@ For this example we choose to fail hard, as we going to consider this program te
 The files many not be open for some or other reasons.
 
 
-Question do we use a 
+///////////////////////////////////////////////////////
+Anything in that I may have missed
+///////////////////////////////////////////////////////
+
+The following assumption was made that their wouldn't be any support for implicit creation of users from followers and tweets.
+1. The existing reason for this was performance based, to prevent using a lookup structure/dictionary/hashtable, so we could potentially
+speed up the processing of things. We used a flat list and a post sort operation, which would cause the followers and tweet names
+to have been flat, which clumbsome and use way to much memory. If want to support implicit, then use method 2. below.
+
+2. It may have been simpler to have just used the javascript property dictionary, because everyting in javascript is a referance,
+so the backing structure would have just been two referance, so the bullshit I spoke above, shouldn't apple here about V8 case.
+It does cause overhead of look up for every record read and will support implicit followers and tweets, which be massive performance knock.
+But the method used in 1. with bulk sort and post prune should be faster as it reduces the increment overhead of insertion and lookup for updating
+the dictionary to single mass operation. While using a quick post sort and predicative contigious, good memory loading pattern and mapping in L1,L2,L3, FUll associative memory controller
+for much larger datasets(L eviction) and then just using the last register in the cpu to detect and skip duplicates. 
+Yes their potentially is a small memory overhead to pay for this performance increase, which could be really bad if their lots of duplicate users.
