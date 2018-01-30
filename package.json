@@ -4,7 +4,7 @@
   "description": "Simulation of a twitter feed",
   "main": "index.js",
   "scripts": {
-    "run": "node dist/program.js",
+    "run": "node dist/program.js ../src/resouces/user.txt ../src/resouces/tweet.txt",
     "build": "tsc -p ./tsconfig.json",
     "test": "mocha -r ts-node/register src/**/*.spec.ts"
   },

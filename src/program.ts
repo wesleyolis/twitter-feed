@@ -17,10 +17,21 @@ class TwitterFeed
         }
         else
         {
+            console.log("Got: " + JSON.stringify(process.argv));
             this.users = process.argv[2];
             this.tweets = process.argv[3];
         }
+        /*
+        Doesn't seem to be working.
+        fs.exists("/program.js", (exists : boolean) => {
+            if (exists == false)
+            {
+                console.log("Testing Exists");
+                process.abort();
+            }
+        });*/
 
+        /*
         fs.exists(this.users, (exists : boolean) => {
             
             if (exists == false)
@@ -39,7 +50,9 @@ class TwitterFeed
 
                 new DisplayTweets(this.tweets, this.users).Display();
             });
-        })
+        })*/
+
+        new DisplayTweets(this.tweets, this.users).Display();
 
         /*process.argv.forEach((val, index) => {
             console.log(`${index}: ${val}`);
